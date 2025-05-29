@@ -1,0 +1,22 @@
+# Built application files
+/build/
+/release/
+/debug/
+
+# Generated files
+/schemas/
+
+# Local configuration
+/src/debug/res/values/secrets.xml
+/src/main/res/values/secrets.xml
+/src/release/res/values/secrets.xml
+
+# Lint
+/lint-baseline.xml
+
+# Tests
+/androidTest/
+/test/
+
+# Proguard
+/proguard-rules.pro
