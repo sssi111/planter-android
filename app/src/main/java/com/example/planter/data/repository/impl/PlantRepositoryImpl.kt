@@ -1,6 +1,6 @@
 package com.example.planter.data.repository.impl
 
-import com.example.planter.data.api.LocationRequest
+import com.example.planter.data.api.request.LocationRequest
 import com.example.planter.data.api.PlanterApi
 import com.example.planter.data.model.Plant
 import com.example.planter.data.repository.PlantRepository

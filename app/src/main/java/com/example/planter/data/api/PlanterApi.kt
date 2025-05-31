@@ -1,15 +1,18 @@
 package com.example.planter.data.api
 
+import com.example.planter.data.api.request.*
+import com.example.planter.data.api.response.*
 import com.example.planter.data.model.*
+import retrofit2.Response
 import retrofit2.http.*
 
 interface PlanterApi {
     // Auth endpoints
     @POST("auth/login")
-    suspend fun login(@Body credentials: LoginRequest): AuthResponse
+    suspend fun login(@Body request: LoginRequest): Response<AuthResponse>
     
     @POST("auth/register")
-    suspend fun register(@Body user: RegisterRequest): AuthResponse
+    suspend fun register(@Body request: RegisterRequest): Response<AuthResponse>
     
     // User endpoints
     @GET("users/{userId}")
@@ -64,36 +67,26 @@ interface PlanterApi {
     
     // Recommendations endpoints
     @POST("recommendations/questionnaire")
-    suspend fun saveQuestionnaire(@Body request: QuestionnaireRequest): PlantQuestionnaire
+    suspend fun submitQuestionnaire(
+        @Body request: QuestionnaireRequest
+    ): Response<PlantQuestionnaire>
     
     @GET("recommendations/questionnaire/{questionnaireId}")
     suspend fun getRecommendations(@Path("questionnaireId") questionnaireId: String): List<Plant>
+
+    // Chat endpoints
+    @GET("chat/sessions")
+    suspend fun getChatSessions(): List<ChatSession>
+
+    @GET("chat/sessions/{sessionId}/messages")
+    suspend fun getChatMessages(@Path("sessionId") sessionId: String): List<ChatMessage>
+
+    @POST("chat/sessions/{sessionId}/messages")
+    suspend fun sendChatMessage(
+        @Path("sessionId") sessionId: String,
+        @Body request: ChatRequest
+    ): ChatResponse
+
+    @POST("chat/sessions")
+    suspend fun createChatSession(): ChatSession
 }
-
-data class LoginRequest(
-    val email: String,
-    val password: String
-)
-
-data class RegisterRequest(
-    val name: String,
-    val email: String,
-    val password: String
-)
-
-data class AuthResponse(
-    val token: String,
-    val user: User
-)
-
-data class MessageResponse(
-    val message: String
-)
-
-data class LocationRequest(
-    val location: String
-)
-
-data class ErrorResponse(
-    val error: String
-)

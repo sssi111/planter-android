@@ -5,9 +5,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.planter.R
 import com.example.planter.ui.components.PlantCard
 import com.example.planter.ui.components.TopBar
@@ -15,10 +17,11 @@ import androidx.compose.foundation.background
 
 @Composable
 fun FavoritesScreen(
-    onPlantClick: (String) -> Unit
+    onPlantClick: (String) -> Unit,
+    viewModel: FavoritesViewModel = hiltViewModel()
 ) {
-    // TODO: Получить список избранных растений из ViewModel
-    val favoritePlants = remember { listOf<com.example.planter.data.model.Plant>() } // заменить на state
+    val uiState by viewModel.uiState.collectAsState()
+    val favoritePlants = uiState.plants
 
     Column(
         modifier = Modifier
@@ -38,7 +41,21 @@ fun FavoritesScreen(
             style = MaterialTheme.typography.titleMedium
         )
         Spacer(Modifier.height(16.dp))
-        if (favoritePlants.isEmpty()) {
+        
+        if (uiState.isLoading) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        } else if (uiState.error != null) {
+            Text(
+                text = "Error: ${uiState.error}",
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.bodyLarge
+            )
+        } else if (favoritePlants.isEmpty()) {
             Text(
                 text = "Your favorite plants will appear here",
                 style = MaterialTheme.typography.bodyLarge
@@ -50,7 +67,8 @@ fun FavoritesScreen(
                 items(favoritePlants) { plant ->
                     PlantCard(
                         plant = plant,
-                        onClick = { onPlantClick(plant.id) }
+                        onClick = { onPlantClick(plant.id) },
+                        onFavoriteClick = viewModel::toggleFavorite
                     )
                 }
             }

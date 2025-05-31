@@ -1,12 +1,17 @@
 package com.example.planter.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.planter.ui.screens.auth.AuthViewModel
 import com.example.planter.ui.screens.auth.LoginScreen
 import com.example.planter.ui.screens.auth.RegisterScreen
 import com.example.planter.ui.screens.chat.ChatScreen
@@ -15,6 +20,7 @@ import com.example.planter.ui.screens.home.HomeScreen
 import com.example.planter.ui.screens.plant.PlantDetailsScreen
 import com.example.planter.ui.screens.profile.ProfileScreen
 import com.example.planter.ui.screens.shop.ShopScreen
+import com.example.planter.ui.screens.recommendations.QuestionnaireScreen
 
 sealed class Screen(val route: String) {
     object Login : Screen("login")
@@ -27,23 +33,30 @@ sealed class Screen(val route: String) {
     object PlantDetails : Screen("plant_details/{plantId}") {
         fun createRoute(plantId: String) = "plant_details/$plantId"
     }
+    object QuestionnaireScreen : Screen("questionnaire")
 }
 
 @Composable
 fun NavGraph(
     navController: NavHostController,
     modifier: Modifier = Modifier,
-    onPlantClick: (String) -> Unit
+    onPlantClick: (String) -> Unit,
+    authViewModel: AuthViewModel = hiltViewModel()
 ) {
+    val isLoggedIn by authViewModel.isLoggedIn.collectAsState()
+    
+    // Определяем начальный экран в зависимости от статуса авторизации
+    val startDestination = if (isLoggedIn) Screen.Home.route else Screen.Login.route
+    
     NavHost(
         navController = navController,
-        startDestination = Screen.Login.route,
+        startDestination = startDestination,
         modifier = modifier
     ) {
         composable(Screen.Login.route) {
             LoginScreen(
-                onLoginClick = { email, password ->
-                    // TODO: Implement login logic
+                viewModel = authViewModel,
+                onLoginSuccess = {
                     navController.navigate(Screen.Home.route) {
                         popUpTo(Screen.Login.route) { inclusive = true }
                     }
@@ -56,9 +69,9 @@ fun NavGraph(
 
         composable(Screen.Register.route) {
             RegisterScreen(
-                onRegisterClick = { name, email, password ->
-                    // TODO: Implement register logic
-                    navController.navigate(Screen.Home.route) {
+                viewModel = authViewModel,
+                onRegisterSuccess = {
+                    navController.navigate(Screen.QuestionnaireScreen.route) {
                         popUpTo(Screen.Register.route) { inclusive = true }
                     }
                 },
@@ -83,7 +96,7 @@ fun NavGraph(
         }
 
         composable(Screen.Chat.route) {
-            ChatScreen()
+            com.example.planter.ui.screens.chat.ChatScreen(modifier = Modifier)
         }
 
         composable(Screen.Shop.route) {
@@ -94,6 +107,16 @@ fun NavGraph(
 
         composable(Screen.Profile.route) {
             ProfileScreen()
+        }
+
+        composable("questionnaire") {
+            com.example.planter.ui.screens.recommendations.QuestionnaireScreen(
+                navController = navController,
+                onQuestionnaireComplete = { questionnaire: com.example.planter.data.model.PlantQuestionnaire ->
+                    // TODO: Save questionnaire and get recommendations
+                    navController.navigate(Screen.Home.route)
+                }
+            )
         }
 
         composable(

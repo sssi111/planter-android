@@ -1,5 +1,6 @@
 package com.example.planter.ui.screens.auth
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -14,129 +15,222 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.planter.R
 
 @Composable
 fun LoginScreen(
-    onLoginClick: (String, String) -> Unit,
+    viewModel: AuthViewModel = hiltViewModel(),
+    onLoginSuccess: () -> Unit,
     onRegisterClick: () -> Unit
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    
+    val authState by viewModel.authState.collectAsState()
+    
+    LaunchedEffect(authState) {
+        if (authState is AuthState.Success) {
+            onLoginSuccess()
+            viewModel.resetState()
+        }
+    }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFF8F8F8))
+            .background(MaterialTheme.colorScheme.background)
     ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.Center)
+                .fillMaxSize()
                 .padding(horizontal = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Spacer(modifier = Modifier.height(60.dp))
+            
+            // App logo or image
+            Image(
+                painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                contentDescription = "App Logo",
+                modifier = Modifier
+                    .size(120.dp)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)),
+                contentScale = ContentScale.Fit
+            )
+            
+            Spacer(modifier = Modifier.height(24.dp))
+            
+            Text(
+                text = "Welcome to Planter",
+                fontWeight = FontWeight.Bold,
+                fontSize = 24.sp,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+            
+            Text(
+                text = "Your personal plant care assistant",
+                fontSize = 16.sp,
+                color = Color.Gray,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(top = 8.dp, bottom = 40.dp)
+            )
+            
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(28.dp),
+                shape = RoundedCornerShape(16.dp),
                 colors = CardDefaults.cardColors(containerColor = Color.White),
-                elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
             ) {
-                Box(Modifier.fillMaxWidth()) {
-                    IconButton(
-                        onClick = { onRegisterClick() },
-                        modifier = Modifier
-                            .padding(16.dp)
-                            .size(36.dp)
-                            .clip(CircleShape)
-                            .align(Alignment.TopStart)
-                    ) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = null)
-                    }
-                }
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 24.dp, vertical = 16.dp),
+                        .padding(horizontal = 24.dp, vertical = 24.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Spacer(Modifier.height(16.dp))
-                    Text(
-                        text = "Log in",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 28.sp,
-                        modifier = Modifier.padding(bottom = 24.dp)
-                    )
                     Text(
                         text = "Email Address",
                         fontWeight = FontWeight.Medium,
                         fontSize = 16.sp,
+                        color = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.align(Alignment.Start)
                     )
                     OutlinedTextField(
                         value = email,
                         onValueChange = { email = it },
-                        leadingIcon = { Icon(Icons.Default.Email, contentDescription = null) },
-                        placeholder = { Text("Youremail@gmail.com") },
+                        leadingIcon = {
+                            Icon(
+                                Icons.Default.Email,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        },
+                        placeholder = { Text("Youremail@gmail.com", color = Color.Gray) },
                         singleLine = true,
-                        shape = RoundedCornerShape(18.dp),
+                        shape = RoundedCornerShape(12.dp),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 8.dp),
                         colors = TextFieldDefaults.colors(
-                            focusedContainerColor = Color(0xFFF3F3F3),
-                            unfocusedContainerColor = Color(0xFFF3F3F3),
-                            focusedIndicatorColor = Color.Transparent,
+                            focusedContainerColor = Color(0xFFF8F8F8),
+                            unfocusedContainerColor = Color(0xFFF8F8F8),
+                            focusedIndicatorColor = MaterialTheme.colorScheme.primary,
                             unfocusedIndicatorColor = Color.Transparent
                         )
                     )
+                    
+                    Spacer(modifier = Modifier.height(16.dp))
+                    
                     Text(
                         text = "Password",
                         fontWeight = FontWeight.Medium,
                         fontSize = 16.sp,
+                        color = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.align(Alignment.Start)
                     )
                     OutlinedTextField(
                         value = password,
                         onValueChange = { password = it },
-                        leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
-                        placeholder = { Text("At least 8 character") },
+                        leadingIcon = {
+                            Icon(
+                                Icons.Default.Lock,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        },
+                        placeholder = { Text("At least 8 characters", color = Color.Gray) },
                         singleLine = true,
-                        shape = RoundedCornerShape(18.dp),
+                        shape = RoundedCornerShape(12.dp),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 8.dp),
                         colors = TextFieldDefaults.colors(
-                            focusedContainerColor = Color(0xFFF3F3F3),
-                            unfocusedContainerColor = Color(0xFFF3F3F3),
-                            focusedIndicatorColor = Color.Transparent,
+                            focusedContainerColor = Color(0xFFF8F8F8),
+                            unfocusedContainerColor = Color(0xFFF8F8F8),
+                            focusedIndicatorColor = MaterialTheme.colorScheme.primary,
                             unfocusedIndicatorColor = Color.Transparent
                         )
                     )
-                    Spacer(Modifier.height(4.dp))
+                    
+                    Spacer(Modifier.height(8.dp))
+                    
                     TextButton(
                         onClick = { /* TODO: Forgot password */ },
-                        modifier = Modifier.align(Alignment.Start)
+                        modifier = Modifier.align(Alignment.End)
                     ) {
-                        Text("Forgot Password?", color = Color.Black, fontWeight = FontWeight.Medium)
+                        Text(
+                            "Forgot Password?",
+                            color = MaterialTheme.colorScheme.primary,
+                            fontWeight = FontWeight.Medium
+                        )
                     }
-                    Spacer(Modifier.height(16.dp))
+                    
+                    Spacer(Modifier.height(24.dp))
+                    
                     Button(
-                        onClick = { onLoginClick(email, password) },
+                        onClick = { viewModel.login(email, password) },
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(56.dp),
-                        shape = RoundedCornerShape(28.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2EFF6D))
+                        shape = RoundedCornerShape(12.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
+                        enabled = authState !is AuthState.Loading
                     ) {
-                        Text("Log in", color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                        if (authState is AuthState.Loading) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(24.dp),
+                                color = Color.White
+                            )
+                        } else {
+                            Text(
+                                "Log in",
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 18.sp
+                            )
+                        }
                     }
-                    Spacer(Modifier.height(16.dp))
+                    
+                    if (authState is AuthState.Error) {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = (authState as AuthState.Error).message,
+                            color = MaterialTheme.colorScheme.error,
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+                }
+            }
+            
+            Spacer(modifier = Modifier.height(24.dp))
+            
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Don't have an account?",
+                    color = Color.Gray,
+                    fontSize = 16.sp
+                )
+                
+                TextButton(onClick = { onRegisterClick() }) {
+                    Text(
+                        text = "Sign Up",
+                        color = MaterialTheme.colorScheme.primary,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp
+                    )
                 }
             }
         }
     }
-} 
+}

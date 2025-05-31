@@ -33,6 +33,7 @@ import java.util.*
 fun PlantCard(
     plant: Plant,
     onClick: () -> Unit,
+    onFavoriteClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -52,7 +53,7 @@ fun PlantCard(
                     contentScale = ContentScale.Crop
                 )
                 IconButton(
-                    onClick = { /* Handle favorite toggle */ },
+                    onClick = { onFavoriteClick(plant.id) },
                     modifier = Modifier
                         .align(Alignment.TopEnd)
                         .padding(4.dp)

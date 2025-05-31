@@ -1,18 +1,24 @@
 package com.example.planter.ui.components
 
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun BottomBar(
@@ -20,7 +26,11 @@ fun BottomBar(
     onTabSelected: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    NavigationBar(modifier = modifier) {
+    NavigationBar(
+        modifier = modifier,
+        containerColor = Color.White,
+        contentColor = MaterialTheme.colorScheme.primary
+    ) {
         BottomBarItem(
             icon = Icons.Default.Home,
             label = "Home",
@@ -34,16 +44,22 @@ fun BottomBar(
             onClick = { onTabSelected(1) }
         )
         BottomBarItem(
-            icon = Icons.Default.ShoppingCart,
-            label = "Shopping",
+            icon = Icons.Filled.Email,
+            label = "Chat",
             selected = selectedIndex == 2,
             onClick = { onTabSelected(2) }
         )
         BottomBarItem(
-            icon = Icons.Default.Person,
-            label = "Profile",
+            icon = Icons.Default.ShoppingCart,
+            label = "Shopping",
             selected = selectedIndex == 3,
             onClick = { onTabSelected(3) }
+        )
+        BottomBarItem(
+            icon = Icons.Default.Person,
+            label = "Profile",
+            selected = selectedIndex == 4,
+            onClick = { onTabSelected(4) }
         )
     }
 }
@@ -58,7 +74,24 @@ private fun androidx.compose.foundation.layout.RowScope.BottomBarItem(
     NavigationBarItem(
         selected = selected,
         onClick = onClick,
-        icon = { Icon(icon, contentDescription = label) },
-        label = { Text(label) }
+        icon = {
+            Icon(
+                imageVector = icon,
+                contentDescription = label,
+                modifier = Modifier.size(24.dp),
+                tint = if (selected) MaterialTheme.colorScheme.primary else Color.Gray
+            )
+        },
+        label = {
+            Text(
+                text = label,
+                color = if (selected) MaterialTheme.colorScheme.primary else Color.Gray
+            )
+        },
+        colors = NavigationBarItemDefaults.colors(
+            selectedIconColor = MaterialTheme.colorScheme.primary,
+            unselectedIconColor = Color.Gray,
+            indicatorColor = Color.White
+        )
     )
 }

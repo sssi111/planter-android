@@ -80,7 +80,8 @@ fun HomeScreen(
             items(uiState.plants) { plant ->
                 PlantCard(
                     plant = plant,
-                    onClick = { onPlantClick(plant.id) }
+                    onClick = { onPlantClick(plant.id) },
+                    onFavoriteClick = viewModel::toggleFavorite
                 )
             }
         }

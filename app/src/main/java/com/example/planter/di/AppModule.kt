@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.planter.data.api.PlanterApi
 import com.example.planter.data.auth.AuthInterceptor
 import com.example.planter.data.auth.AuthManager
+import com.squareup.moshi.Moshi
 import com.example.planter.data.repository.PlantRepository
 import com.example.planter.data.repository.RecommendationRepository
 import com.example.planter.data.repository.ShopRepository
@@ -20,7 +21,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -53,11 +54,19 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providePlanterApi(okHttpClient: OkHttpClient): PlanterApi {
+    fun provideMoshi(): Moshi {
+        return Moshi.Builder()
+            .add(com.example.planter.data.api.adapter.OffsetDateTimeAdapter())
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun providePlanterApi(okHttpClient: OkHttpClient, moshi: Moshi): PlanterApi {
         return Retrofit.Builder()
-            .baseUrl("http://localhost:8080/") // Локальный сервер разработки
+            .baseUrl("http://10.0.2.2:8080/") // Локальный сервер разработки для Android эмулятора
             .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
             .create(PlanterApi::class.java)
     }

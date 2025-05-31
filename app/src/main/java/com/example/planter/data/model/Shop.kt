@@ -1,13 +1,16 @@
 package com.example.planter.data.model
 
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import java.time.OffsetDateTime
 
+@JsonClass(generateAdapter = true)
 data class Shop(
-    val id: String,
-    val name: String,
-    val address: String,
-    val rating: Float,
-    val imageUrl: String? = null,
-    val createdAt: OffsetDateTime? = null,
-    val updatedAt: OffsetDateTime? = null
+    @Json(name = "id") val id: String,
+    @Json(name = "name") val name: String,
+    @Json(name = "address") val address: String,
+    @Json(name = "rating") val rating: Float,
+    @Json(name = "imageUrl") val imageUrl: String? = null,
+    @Json(name = "createdAt") val createdAt: OffsetDateTime? = null,
+    @Json(name = "updatedAt") val updatedAt: OffsetDateTime? = null
 )

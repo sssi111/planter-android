@@ -58,6 +58,23 @@ class HomeViewModel @Inject constructor(
         _uiState.update { it.copy(selectedLocation = location) }
         loadPlants()
     }
+    
+    fun toggleFavorite(plantId: String) {
+        viewModelScope.launch {
+            try {
+                plantRepository.toggleFavorite(plantId)
+                // Reload plants to reflect the updated favorite status
+                loadPlants()
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(
+                        error = e.message ?: "Failed to update favorite status",
+                        isLoading = false
+                    )
+                }
+            }
+        }
+    }
 
     private fun loadUserData() {
         viewModelScope.launch {

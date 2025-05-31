@@ -1,22 +1,13 @@
 package com.example.planter.data.model
 
-import java.time.OffsetDateTime
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-data class QuestionnaireRequest(
-    val sunlightPreference: SunlightLevel,
-    val petFriendly: Boolean,
-    val careLevel: Int, // от 1 до 5
-    val preferredLocation: String? = null,
-    val additionalPreferences: String? = null
-)
-
-data class PlantQuestionnaire(
-    val id: String,
-    val userId: String? = null,
-    val sunlightPreference: SunlightLevel,
-    val petFriendly: Boolean,
-    val careLevel: Int, // от 1 до 5
-    val preferredLocation: String? = null,
-    val additionalPreferences: String? = null,
-    val createdAt: OffsetDateTime? = null
+@JsonClass(generateAdapter = true)
+data class Questionnaire(
+    @Json(name = "sunlightPreference") val sunlightPreference: SunlightLevel,
+    @Json(name = "petFriendly") val petFriendly: Boolean,
+    @Json(name = "careLevel") val careLevel: Int, // от 1 до 5
+    @Json(name = "preferredLocation") val preferredLocation: String? = null,
+    @Json(name = "additionalPreferences") val additionalPreferences: String? = null
 )
