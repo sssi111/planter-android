@@ -2,6 +2,7 @@ package com.example.planter.data.repository
 
 import com.example.planter.data.model.Notification
 import com.example.planter.data.network.PlantApi
+import com.example.planter.data.network.NotificationResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.util.UUID

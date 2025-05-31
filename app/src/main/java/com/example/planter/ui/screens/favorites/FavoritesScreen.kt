@@ -14,13 +14,16 @@ import com.example.planter.R
 import com.example.planter.ui.components.PlantCard
 import com.example.planter.ui.components.TopBar
 import androidx.compose.foundation.background
+import com.example.planter.ui.viewmodels.UserViewModel
 
 @Composable
 fun FavoritesScreen(
     onPlantClick: (String) -> Unit,
-    viewModel: FavoritesViewModel = hiltViewModel()
+    viewModel: FavoritesViewModel = hiltViewModel(),
+    userViewModel: UserViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val userName by userViewModel.userName.collectAsState()
     val favoritePlants = uiState.plants
 
     Column(
@@ -31,7 +34,7 @@ fun FavoritesScreen(
     ) {
         Spacer(Modifier.height(24.dp))
         TopBar(
-            userName = "User", // TODO: заменить на имя пользователя
+            userName = userName,
             avatarUrl = null,
             onNotificationsClick = { }
         )

@@ -23,11 +23,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.planter.R
 import com.example.planter.ui.components.TopBar
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.planter.ui.viewmodels.UserViewModel
 
 @Composable
 fun ShopScreen(
-    onPlantClick: (String) -> Unit
+    viewModel: ShopViewModel = hiltViewModel(),
+    userViewModel: UserViewModel = hiltViewModel()
 ) {
+    val userName by userViewModel.userName.collectAsState()
+    
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -37,7 +42,7 @@ fun ShopScreen(
     ) {
         Spacer(Modifier.height(24.dp))
         TopBar(
-            userName = "User", // TODO: заменить на имя пользователя
+            userName = userName,
             avatarUrl = null,
             onNotificationsClick = { }
         )

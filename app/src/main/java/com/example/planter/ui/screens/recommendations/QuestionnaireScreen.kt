@@ -84,7 +84,7 @@ fun QuestionnaireScreen(
         // Preferred location input
         OutlinedTextField(
             value = preferredLocation,
-            onValueChange = { newValue: String -> preferredLocation = newValue },
+            onValueChange = { preferredLocation = it },
             label = { Text("Preferred Location (optional)") },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true
@@ -105,9 +105,6 @@ fun QuestionnaireScreen(
                     createdAt = ""
                 )
                 onQuestionnaireComplete(questionnaire)
-                navController.navigate(Screen.Home.route) {
-                    popUpTo(Screen.Register.route) { inclusive = true }
-                }
             },
             modifier = Modifier
                 .fillMaxWidth()

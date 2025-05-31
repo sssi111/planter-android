@@ -28,7 +28,7 @@ fun BottomBar(
 ) {
     NavigationBar(
         modifier = modifier,
-        containerColor = Color.White,
+        containerColor = MaterialTheme.colorScheme.background,
         contentColor = MaterialTheme.colorScheme.primary
     ) {
         BottomBarItem(
@@ -65,7 +65,7 @@ fun BottomBar(
 }
 
 @Composable
-private fun androidx.compose.foundation.layout.RowScope.BottomBarItem(
+private fun RowScope.BottomBarItem(
     icon: ImageVector,
     label: String,
     selected: Boolean,
@@ -79,19 +79,19 @@ private fun androidx.compose.foundation.layout.RowScope.BottomBarItem(
                 imageVector = icon,
                 contentDescription = label,
                 modifier = Modifier.size(24.dp),
-                tint = if (selected) MaterialTheme.colorScheme.primary else Color.Gray
+                tint = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
             )
         },
         label = {
             Text(
                 text = label,
-                color = if (selected) MaterialTheme.colorScheme.primary else Color.Gray
+                color = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
             )
         },
         colors = NavigationBarItemDefaults.colors(
             selectedIconColor = MaterialTheme.colorScheme.primary,
-            unselectedIconColor = Color.Gray,
-            indicatorColor = Color.White
+            unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+            indicatorColor = MaterialTheme.colorScheme.primaryContainer
         )
     )
 }

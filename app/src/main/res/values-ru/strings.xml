@@ -46,6 +46,8 @@
     <string name="schedule_consultation">Записаться на консультацию</string>
     <string name="type_message">Введите сообщение</string>
     <string name="send">Отправить</string>
+    <string name="title_chat">Чат</string>
+    <string name="chat_empty_message">Здесь будут отображаться ваши сообщения</string>
     
     <!-- Profile -->
     <string name="settings">Настройки</string>

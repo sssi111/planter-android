@@ -1,10 +1,7 @@
 package com.example.planter.data.network
 
 import com.example.planter.data.model.Notification
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 import java.util.UUID
 
 interface PlantApi {
@@ -18,9 +15,9 @@ interface PlantApi {
     suspend fun markNotificationAsRead(
         @Path("notificationId") notificationId: UUID
     )
-
-    data class NotificationResponse(
-        val notifications: List<Notification>,
-        val total: Int
-    )
 }
+
+data class NotificationResponse(
+    val notifications: List<Notification>,
+    val total: Int
+)
