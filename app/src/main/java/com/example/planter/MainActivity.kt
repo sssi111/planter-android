@@ -96,7 +96,8 @@ fun MainScreen() {
                 onPlantClick = { plantId ->
                     navController.navigate(Screen.PlantDetails.createRoute(plantId))
                 },
-                authViewModel = authViewModel
+                authViewModel = authViewModel,
+                modifier = Modifier.fillMaxSize()
             )
         }
     }

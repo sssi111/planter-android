@@ -29,6 +29,7 @@ import com.example.planter.data.model.TemperatureRange
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
+import androidx.compose.ui.graphics.Color
 
 @Composable
 fun PlantDetailsScreen(
@@ -101,7 +102,7 @@ fun PlantDetailsScreen(
                     Icon(
                         imageVector = if (plant.isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
                         contentDescription = if (plant.isFavorite) "Remove from favorites" else "Add to favorites",
-                        tint = if (plant.isFavorite) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+                        tint = if (plant.isFavorite) Color(0xFFE91E63) else MaterialTheme.colorScheme.onSurface
                     )
                 }
             }

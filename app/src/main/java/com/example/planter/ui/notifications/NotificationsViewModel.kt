@@ -1,13 +1,73 @@
 package com.example.planter.ui.notifications
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.planter.data.model.Notification
+import com.example.planter.data.repository.NotificationRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.launch
+import java.util.UUID
+import javax.inject.Inject
 
-class NotificationsViewModel : ViewModel() {
+@HiltViewModel
+class NotificationsViewModel @Inject constructor(
+    private val notificationRepository: NotificationRepository
+) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+    private val _uiState = MutableStateFlow(NotificationsUiState())
+    val uiState: StateFlow<NotificationsUiState> = _uiState
+
+    init {
+        loadNotifications()
     }
-    val text: LiveData<String> = _text
+
+    fun loadNotifications(page: Int = 1) {
+        viewModelScope.launch {
+            _uiState.value = _uiState.value.copy(isLoading = true)
+            notificationRepository.getNotifications(page)
+                .catch { e ->
+                    _uiState.value = _uiState.value.copy(
+                        error = e.message ?: "Не удалось загрузить уведомления",
+                        isLoading = false
+                    )
+                }
+                .collect { notifications ->
+                    _uiState.value = _uiState.value.copy(
+                        notifications = notifications,
+                        isLoading = false,
+                        error = null
+                    )
+                }
+        }
+    }
+
+    fun markAsRead(notificationId: UUID) {
+        viewModelScope.launch {
+            try {
+                notificationRepository.markAsRead(notificationId)
+                // Обновляем состояние уведомления локально
+                val updatedNotifications = _uiState.value.notifications.map { notification ->
+                    if (notification.id == notificationId) {
+                        notification.copy(isRead = true)
+                    } else {
+                        notification
+                    }
+                }
+                _uiState.value = _uiState.value.copy(notifications = updatedNotifications)
+            } catch (e: Exception) {
+                _uiState.value = _uiState.value.copy(
+                    error = e.message ?: "Не удалось отметить уведомление как прочитанное"
+                )
+            }
+        }
+    }
 }
+
+data class NotificationsUiState(
+    val notifications: List<Notification> = emptyList(),
+    val isLoading: Boolean = false,
+    val error: String? = null
+)

@@ -33,31 +33,31 @@ fun BottomBar(
     ) {
         BottomBarItem(
             icon = Icons.Default.Home,
-            label = "Home",
+            label = "Главная",
             selected = selectedIndex == 0,
             onClick = { onTabSelected(0) }
         )
         BottomBarItem(
             icon = Icons.Default.Favorite,
-            label = "Favourite",
+            label = "Избранное",
             selected = selectedIndex == 1,
             onClick = { onTabSelected(1) }
         )
         BottomBarItem(
             icon = Icons.Filled.Email,
-            label = "Chat",
+            label = "Чат",
             selected = selectedIndex == 2,
             onClick = { onTabSelected(2) }
         )
         BottomBarItem(
             icon = Icons.Default.ShoppingCart,
-            label = "Shopping",
+            label = "Магазин",
             selected = selectedIndex == 3,
             onClick = { onTabSelected(3) }
         )
         BottomBarItem(
             icon = Icons.Default.Person,
-            label = "Profile",
+            label = "Профиль",
             selected = selectedIndex == 4,
             onClick = { onTabSelected(4) }
         )

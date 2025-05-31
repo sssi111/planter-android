@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import java.time.OffsetDateTime
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -22,8 +23,7 @@ class HomeViewModel @Inject constructor(
 
     init {
         loadUserData()
-        loadPlants()
-        loadSpecialOffers()
+        loadUserPlants()
     }
 
     fun onSearchQueryChange(query: String) {
@@ -56,19 +56,34 @@ class HomeViewModel @Inject constructor(
 
     fun onLocationSelected(location: String) {
         _uiState.update { it.copy(selectedLocation = location) }
-        loadPlants()
+        loadUserPlants()
     }
     
     fun toggleFavorite(plantId: String) {
         viewModelScope.launch {
             try {
                 plantRepository.toggleFavorite(plantId)
-                // Reload plants to reflect the updated favorite status
-                loadPlants()
+                loadUserPlants()
             } catch (e: Exception) {
                 _uiState.update {
                     it.copy(
                         error = e.message ?: "Failed to update favorite status",
+                        isLoading = false
+                    )
+                }
+            }
+        }
+    }
+
+    fun markAsWatered(plantId: String) {
+        viewModelScope.launch {
+            try {
+                plantRepository.markAsWatered(plantId)
+                loadUserPlants()
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(
+                        error = e.message ?: "Failed to mark plant as watered",
                         isLoading = false
                     )
                 }
@@ -90,15 +105,24 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun loadPlants() {
+    private fun loadUserPlants() {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
             try {
-                plantRepository.getAllPlants()
+                plantRepository.getUserPlants()
                     .collect { plants ->
+                        val now = OffsetDateTime.now()
+                        val needsWatering = plants.filter { plant -> 
+                            plant.nextWatering?.isBefore(now) ?: false 
+                        }
+                        val upcomingWatering = plants.filter { plant ->
+                            val nextWatering = plant.nextWatering
+                            nextWatering != null && nextWatering.isAfter(now)
+                        }
                         _uiState.update { 
                             it.copy(
-                                plants = plants,
+                                needsWateringPlants = needsWatering,
+                                upcomingWateringPlants = upcomingWatering,
                                 isLoading = false
                             )
                         }
@@ -113,25 +137,15 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
-
-    private fun loadSpecialOffers() {
-        // TODO: Implement special offers loading
-        _uiState.update { 
-            it.copy(
-                specialOffers = emptyList(),
-                isLoading = false
-            )
-        }
-    }
 }
 
 data class HomeUiState(
     val userName: String = "",
     val searchQuery: String = "",
     val searchResults: List<Plant> = emptyList(),
-    val specialOffers: List<SpecialOffer> = emptyList(),
     val selectedLocation: String = "",
-    val plants: List<Plant> = emptyList(),
+    val needsWateringPlants: List<Plant> = emptyList(),
+    val upcomingWateringPlants: List<Plant> = emptyList(),
     val isLoading: Boolean = true,
     val error: String? = null
 ) 

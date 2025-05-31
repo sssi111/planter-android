@@ -21,6 +21,7 @@ import com.example.planter.ui.screens.plant.PlantDetailsScreen
 import com.example.planter.ui.screens.profile.ProfileScreen
 import com.example.planter.ui.screens.shop.ShopScreen
 import com.example.planter.ui.screens.recommendations.QuestionnaireScreen
+import com.example.planter.ui.screens.notifications.NotificationsScreen
 
 sealed class Screen(val route: String) {
     object Login : Screen("login")
@@ -30,6 +31,7 @@ sealed class Screen(val route: String) {
     object Chat : Screen("chat")
     object Shop : Screen("shop")
     object Profile : Screen("profile")
+    object Notifications : Screen("notifications")
     object PlantDetails : Screen("plant_details/{plantId}") {
         fun createRoute(plantId: String) = "plant_details/$plantId"
     }
@@ -85,7 +87,10 @@ fun NavGraph(
 
         composable(Screen.Home.route) {
             HomeScreen(
-                onPlantClick = onPlantClick
+                onPlantClick = onPlantClick,
+                onNotificationsClick = {
+                    navController.navigate(Screen.Notifications.route)
+                }
             )
         }
 
@@ -107,6 +112,12 @@ fun NavGraph(
 
         composable(Screen.Profile.route) {
             ProfileScreen()
+        }
+
+        composable(Screen.Notifications.route) {
+            NotificationsScreen(
+                onPlantClick = onPlantClick
+            )
         }
 
         composable("questionnaire") {

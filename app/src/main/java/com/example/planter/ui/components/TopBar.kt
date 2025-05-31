@@ -41,12 +41,15 @@ fun TopBar(
         )
         Spacer(Modifier.width(12.dp))
         Column {
-            Text("Welcome,", style = MaterialTheme.typography.labelMedium, color = Color.Gray)
+            Text("Привет,", style = MaterialTheme.typography.labelMedium, color = Color.Gray)
             Text(userName, style = MaterialTheme.typography.titleMedium)
         }
         Spacer(Modifier.weight(1f))
         IconButton(onClick = onNotificationsClick) {
-            Icon(Icons.Default.Notifications, contentDescription = null)
+            Icon(
+                Icons.Default.Notifications, 
+                contentDescription = "Уведомления"
+            )
         }
     }
 } 
