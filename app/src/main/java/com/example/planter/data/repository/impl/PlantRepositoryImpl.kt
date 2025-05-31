@@ -28,12 +28,11 @@ class PlantRepositoryImpl @Inject constructor(
     }
 
     override suspend fun toggleFavorite(plantId: String) {
-        // First, get the plant to check if it's already a favorite
-        val plant = api.getPlant(plantId)
-        if (plant.isFavorite) {
-            api.removeFromFavorites(plantId)
-        } else {
+        try {
             api.addToFavorites(plantId)
+        } catch (e: Exception) {
+            // If adding fails, try removing (assuming it's already a favorite)
+            api.removeFromFavorites(plantId)
         }
     }
     

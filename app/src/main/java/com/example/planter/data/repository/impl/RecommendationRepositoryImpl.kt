@@ -13,7 +13,7 @@ class RecommendationRepositoryImpl @Inject constructor(
     private val api: PlanterApi
 ) : RecommendationRepository {
 
-    override suspend fun saveQuestionnaire(request: QuestionnaireRequest): Flow<PlantQuestionnaire> = flow {
+    override suspend fun saveQuestionnaire(request: QuestionnaireRequest): Flow<Plant> = flow {
         val response = api.submitQuestionnaire(request)
         if (response.isSuccessful) {
             response.body()?.let { emit(it) } ?: throw Exception("Empty response body")

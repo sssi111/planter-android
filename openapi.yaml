@@ -621,18 +621,18 @@ paths:
               $ref: '#/components/schemas/QuestionnaireRequest'
       responses:
         '201':
-          description: Questionnaire saved
+          description: Best matching plant found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PlantQuestionnaire'
+                $ref: '#/components/schemas/Plant'
         '400':
           description: Invalid request
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
+                
   /recommendations/questionnaire/detailed:
     post:
       tags:
@@ -647,11 +647,11 @@ paths:
               $ref: '#/components/schemas/DetailedQuestionnaireRequest'
       responses:
         '201':
-          description: Questionnaire saved
+          description: Best matching plant found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PlantQuestionnaire'
+                $ref: '#/components/schemas/Plant'
         '400':
           description: Invalid request
           content:
@@ -687,7 +687,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
+                
   /chat/sessions:
     post:
       tags:
@@ -731,7 +731,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
+                
   /chat/sessions/{sessionId}:
     get:
       tags:
@@ -772,7 +772,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
+                
   /chat/sessions/{sessionId}/messages:
     get:
       tags:
@@ -866,7 +866,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
+                
   /admin/plants:
     post:
       tags:
@@ -1271,7 +1271,7 @@ components:
         - plantSize
         - wateringFrequency
         - experienceLevel
-
+        
     ChatSession:
       type: object
       properties:
@@ -1292,7 +1292,7 @@ components:
         lastUsed:
           type: string
           format: date-time
-
+          
     ChatMessage:
       type: object
       properties:
@@ -1315,7 +1315,7 @@ components:
         createdAt:
           type: string
           format: date-time
-
+          
     ChatRequest:
       type: object
       properties:
@@ -1323,13 +1323,13 @@ components:
           type: string
       required:
         - message
-
+        
     ChatResponse:
       type: object
       properties:
         message:
           $ref: '#/components/schemas/ChatMessage'
-
+          
     AdminPlantRequest:
       type: object
       properties:
@@ -1386,7 +1386,7 @@ components:
         - description
         - imageUrl
         - careInstructions
-
+        
     Error:
       type: object
       properties:

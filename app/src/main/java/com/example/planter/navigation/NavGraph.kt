@@ -132,11 +132,8 @@ fun NavGraph(
 
         composable(Screen.QuestionnaireScreen.route) {
             QuestionnaireScreen(
-                navController = navController,
-                onQuestionnaireComplete = { questionnaire: PlantQuestionnaire ->
-                    navController.navigate(Screen.Home.route) {
-                        popUpTo(Screen.QuestionnaireScreen.route) { inclusive = true }
-                    }
+                onPlantRecommended = { plantId ->
+                    navController.navigate(Screen.PlantDetails.createRoute(plantId))
                 }
             )
         }

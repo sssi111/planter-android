@@ -69,7 +69,7 @@ interface PlanterApi {
     @POST("recommendations/questionnaire")
     suspend fun submitQuestionnaire(
         @Body request: QuestionnaireRequest
-    ): Response<PlantQuestionnaire>
+    ): Response<Plant>
     
     @GET("recommendations/questionnaire/{questionnaireId}")
     suspend fun getRecommendations(@Path("questionnaireId") questionnaireId: String): List<Plant>
