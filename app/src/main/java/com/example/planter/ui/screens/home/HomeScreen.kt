@@ -26,14 +26,17 @@ import com.example.planter.ui.components.LocationSelector
 import com.example.planter.ui.components.PlantCard
 import com.example.planter.ui.components.SearchBar
 import com.example.planter.ui.components.TopBar
+import com.example.planter.ui.viewmodels.UserViewModel
 
 @Composable
 fun HomeScreen(
     onPlantClick: (String) -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
+    userViewModel: UserViewModel = hiltViewModel(),
     onNotificationsClick: () -> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val userName by userViewModel.userName.collectAsState()
     val scrollState = rememberScrollState()
     
     Column(
@@ -45,7 +48,7 @@ fun HomeScreen(
     ) {
         Spacer(Modifier.height(24.dp))
         TopBar(
-            userName = uiState.userName,
+            userName = userName,
             avatarUrl = null,
             onNotificationsClick = onNotificationsClick
         )

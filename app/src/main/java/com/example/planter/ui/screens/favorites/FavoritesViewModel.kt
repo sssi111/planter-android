@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.planter.data.model.Plant
 import com.example.planter.data.repository.PlantRepository
+import com.example.planter.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(
-    private val plantRepository: PlantRepository
+    private val plantRepository: PlantRepository,
+    userRepository: UserRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(FavoritesUiState())

@@ -41,14 +41,23 @@ fun TopBar(
         )
         Spacer(Modifier.width(12.dp))
         Column {
-            Text("Привет,", style = MaterialTheme.typography.labelMedium, color = Color.Gray)
-            Text(userName, style = MaterialTheme.typography.titleMedium)
+            Text(
+                "Привет,", 
+                style = MaterialTheme.typography.labelMedium, 
+                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.7f)
+            )
+            Text(
+                userName, 
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.primary
+            )
         }
         Spacer(Modifier.weight(1f))
         IconButton(onClick = onNotificationsClick) {
             Icon(
                 Icons.Default.Notifications, 
-                contentDescription = "Уведомления"
+                contentDescription = "Уведомления",
+                tint = MaterialTheme.colorScheme.primary
             )
         }
     }

@@ -30,7 +30,7 @@ class NotificationsViewModel @Inject constructor(
             notificationRepository.getNotifications(page)
                 .catch { e ->
                     _uiState.value = _uiState.value.copy(
-                        error = e.message ?: "Не удалось загрузить уведомления",
+                        error = e.message ?: "Failed to load notifications",
                         isLoading = false
                     )
                 }
@@ -48,7 +48,7 @@ class NotificationsViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 notificationRepository.markAsRead(notificationId)
-                // Обновляем состояние уведомления локально
+                // Update notification state locally
                 val updatedNotifications = _uiState.value.notifications.map { notification ->
                     if (notification.id == notificationId) {
                         notification.copy(isRead = true)
@@ -59,7 +59,7 @@ class NotificationsViewModel @Inject constructor(
                 _uiState.value = _uiState.value.copy(notifications = updatedNotifications)
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(
-                    error = e.message ?: "Не удалось отметить уведомление как прочитанное"
+                    error = e.message ?: "Failed to mark notification as read"
                 )
             }
         }

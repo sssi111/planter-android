@@ -22,6 +22,7 @@ import com.example.planter.ui.screens.profile.ProfileScreen
 import com.example.planter.ui.screens.shop.ShopScreen
 import com.example.planter.ui.screens.recommendations.QuestionnaireScreen
 import com.example.planter.ui.screens.notifications.NotificationsScreen
+import com.example.planter.data.model.PlantQuestionnaire
 
 sealed class Screen(val route: String) {
     object Login : Screen("login")
@@ -101,13 +102,11 @@ fun NavGraph(
         }
 
         composable(Screen.Chat.route) {
-            com.example.planter.ui.screens.chat.ChatScreen(modifier = Modifier)
+            ChatScreen()
         }
 
         composable(Screen.Shop.route) {
-            ShopScreen(
-                onPlantClick = onPlantClick
-            )
+            ShopScreen()
         }
 
         composable(Screen.Profile.route) {
@@ -115,30 +114,29 @@ fun NavGraph(
         }
 
         composable(Screen.Notifications.route) {
-            NotificationsScreen(
-                onPlantClick = onPlantClick
-            )
-        }
-
-        composable("questionnaire") {
-            com.example.planter.ui.screens.recommendations.QuestionnaireScreen(
-                navController = navController,
-                onQuestionnaireComplete = { questionnaire: com.example.planter.data.model.PlantQuestionnaire ->
-                    // TODO: Save questionnaire and get recommendations
-                    navController.navigate(Screen.Home.route)
-                }
-            )
+            NotificationsScreen()
         }
 
         composable(
-            route = Screen.PlantDetails.route,
-            arguments = listOf(navArgument("plantId") { type = NavType.StringType })
+            Screen.PlantDetails.route,
+            arguments = listOf(
+                navArgument("plantId") { type = NavType.StringType }
+            )
         ) { backStackEntry ->
             val plantId = backStackEntry.arguments?.getString("plantId") ?: return@composable
             PlantDetailsScreen(
                 plantId = plantId,
-                onBackClick = {
-                    navController.popBackStack()
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+
+        composable(Screen.QuestionnaireScreen.route) {
+            QuestionnaireScreen(
+                navController = navController,
+                onQuestionnaireComplete = { questionnaire: PlantQuestionnaire ->
+                    navController.navigate(Screen.Home.route) {
+                        popUpTo(Screen.QuestionnaireScreen.route) { inclusive = true }
+                    }
                 }
             )
         }

@@ -18,25 +18,38 @@ import com.example.planter.data.model.Notification
 import com.example.planter.data.model.NotificationType
 import com.example.planter.ui.components.NotificationItem
 import com.example.planter.ui.notifications.NotificationsViewModel
+import com.example.planter.ui.components.TopBar
+import com.example.planter.ui.viewmodels.UserViewModel
 
 @Composable
 fun NotificationsScreen(
-    onPlantClick: (String) -> Unit,
-    viewModel: NotificationsViewModel = hiltViewModel()
+    viewModel: NotificationsViewModel = hiltViewModel(),
+    userViewModel: UserViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val userName by userViewModel.userName.collectAsState()
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 16.dp)
     ) {
-        Text(
-            text = "Уведомления",
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(vertical = 16.dp)
+        Spacer(Modifier.height(24.dp))
+        TopBar(
+            userName = userName,
+            avatarUrl = null,
+            onNotificationsClick = { }
         )
-
+        
+        Spacer(Modifier.height(16.dp))
+        
+        Text(
+            text = stringResource(R.string.notifications),
+            style = MaterialTheme.typography.titleMedium
+        )
+        
+        Spacer(Modifier.height(16.dp))
+        
         when {
             uiState.isLoading -> {
                 Box(
@@ -47,30 +60,20 @@ fun NotificationsScreen(
                 }
             }
             uiState.error != null -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = uiState.error!!,
-                        style = MaterialTheme.typography.bodyLarge,
-                        textAlign = TextAlign.Center,
-                        color = MaterialTheme.colorScheme.error
-                    )
-                }
+                Text(
+                    text = uiState.error ?: "",
+                    color = MaterialTheme.colorScheme.error,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
             uiState.notifications.isEmpty() -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "Уведомлений пока нет",
-                        style = MaterialTheme.typography.bodyLarge,
-                        textAlign = TextAlign.Center,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
+                Text(
+                    text = stringResource(R.string.no_notifications),
+                    style = MaterialTheme.typography.bodyLarge,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
             else -> {
                 LazyColumn(
@@ -82,9 +85,6 @@ fun NotificationsScreen(
                             notification = notification,
                             onNotificationClick = { 
                                 viewModel.markAsRead(notification.id)
-                                if (notification.type == NotificationType.WATERING) {
-                                    onPlantClick(notification.plantId.toString())
-                                }
                             }
                         )
                     }

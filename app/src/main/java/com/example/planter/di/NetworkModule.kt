@@ -55,12 +55,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providePlanterApi(okHttpClient: OkHttpClient, moshi: Moshi): PlanterApi {
-        return Retrofit.Builder()
-            .baseUrl("http://localhost:8080/") // TODO: Move to BuildConfig
-            .client(okHttpClient)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .build()
-            .create(PlanterApi::class.java)
+    fun providePlanterApi(retrofit: Retrofit): PlanterApi {
+        return retrofit.create(PlanterApi::class.java)
     }
 } 

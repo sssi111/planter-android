@@ -3,7 +3,6 @@ package com.example.planter.ui.screens.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.planter.data.model.Plant
-import com.example.planter.data.model.SpecialOffer
 import com.example.planter.data.repository.PlantRepository
 import com.example.planter.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,14 +14,13 @@ import java.time.OffsetDateTime
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val plantRepository: PlantRepository,
-    private val userRepository: UserRepository
+    userRepository: UserRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
     init {
-        loadUserData()
         loadUserPlants()
     }
 
@@ -91,20 +89,6 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun loadUserData() {
-        viewModelScope.launch {
-            userRepository.getCurrentUser()
-                .collect { user ->
-                    _uiState.update { 
-                        it.copy(
-                            userName = user?.name ?: "",
-                            isLoading = false
-                        )
-                    }
-                }
-        }
-    }
-
     private fun loadUserPlants() {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
@@ -137,10 +121,13 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
+
+    private fun MutableStateFlow<HomeUiState>.update(transform: (HomeUiState) -> HomeUiState) {
+        value = transform(value)
+    }
 }
 
 data class HomeUiState(
-    val userName: String = "",
     val searchQuery: String = "",
     val searchResults: List<Plant> = emptyList(),
     val selectedLocation: String = "",

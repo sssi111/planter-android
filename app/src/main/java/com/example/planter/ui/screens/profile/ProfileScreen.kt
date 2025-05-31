@@ -9,10 +9,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.planter.R
 import com.example.planter.ui.components.TopBar
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.planter.ui.viewmodels.UserViewModel
 
 @Composable
-fun ProfileScreen() {
-    // TODO: Получить данные пользователя из ViewModel
+fun ProfileScreen(
+    viewModel: ProfileViewModel = hiltViewModel(),
+    userViewModel: UserViewModel = hiltViewModel()
+) {
+    val userName by userViewModel.userName.collectAsState()
+    
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -21,7 +27,7 @@ fun ProfileScreen() {
     ) {
         Spacer(Modifier.height(24.dp))
         TopBar(
-            userName = "User", // TODO: заменить на имя пользователя
+            userName = userName,
             avatarUrl = null,
             onNotificationsClick = { }
         )

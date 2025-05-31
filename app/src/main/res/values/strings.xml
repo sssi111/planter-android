@@ -46,11 +46,14 @@
     <string name="schedule_consultation">Schedule Consultation</string>
     <string name="type_message">Type a message</string>
     <string name="send">Send</string>
+    <string name="title_chat">Chat</string>
+    <string name="chat_empty_message">Your chat messages will appear here</string>
     
     <!-- Profile -->
     <string name="settings">Settings</string>
     <string name="language">Language</string>
     <string name="notifications">Notifications</string>
+    <string name="no_notifications">No notifications yet</string>
     <string name="logout">Logout</string>
     
     <!-- Common -->
