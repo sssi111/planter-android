@@ -37,7 +37,7 @@ fun PlantCard(
             Box {
                 AsyncImage(
                     model = plant.imageUrl,
-                    contentDescription = null,
+                    contentDescription = "Изображение растения ${plant.name}",
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(120.dp),
@@ -76,7 +76,7 @@ fun PlantCard(
                 
                 Spacer(modifier = Modifier.height(4.dp))
                 
-                // Watering information
+                // Информация о поливе
                 if (plant.lastWatered != null || plant.nextWatering != null) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -84,7 +84,7 @@ fun PlantCard(
                     ) {
                         Icon(
                             imageVector = Icons.Default.WaterDrop,
-                            contentDescription = null,
+                            contentDescription = "Информация о поливе",
                             modifier = Modifier.size(16.dp),
                             tint = MaterialTheme.colorScheme.primary
                         )
