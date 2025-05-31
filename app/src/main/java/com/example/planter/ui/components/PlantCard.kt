@@ -1,25 +1,16 @@
 package com.example.planter.ui.components
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.WaterDrop
 import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -28,7 +19,6 @@ import com.example.planter.data.model.Plant
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
-import androidx.compose.ui.graphics.Color
 
 @Composable
 fun PlantCard(
@@ -61,7 +51,7 @@ fun PlantCard(
                 ) {
                     Icon(
                         imageVector = if (plant.isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
-                        contentDescription = if (plant.isFavorite) "Remove from favorites" else "Add to favorites",
+                        contentDescription = if (plant.isFavorite) "Удалить из избранного" else "Добавить в избранное",
                         tint = if (plant.isFavorite) Color(0xFFE91E63) else MaterialTheme.colorScheme.onSurface
                     )
                 }
@@ -76,7 +66,6 @@ fun PlantCard(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-                
                 Text(
                     text = plant.scientificName,
                     style = MaterialTheme.typography.bodySmall,
@@ -85,13 +74,38 @@ fun PlantCard(
                     overflow = TextOverflow.Ellipsis
                 )
                 
-                if (plant.nextWatering != null) {
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = "Next watering: ${formatDate(plant.nextWatering)}",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.primary
-                    )
+                Spacer(modifier = Modifier.height(4.dp))
+                
+                // Watering information
+                if (plant.lastWatered != null || plant.nextWatering != null) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.padding(top = 4.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.WaterDrop,
+                            contentDescription = null,
+                            modifier = Modifier.size(16.dp),
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Column {
+                            plant.lastWatered?.let { lastWatered ->
+                                Text(
+                                    text = "Полив: ${formatDate(lastWatered)}",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                            plant.nextWatering?.let { nextWatering ->
+                                Text(
+                                    text = "След.: ${formatDate(nextWatering)}",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -99,6 +113,6 @@ fun PlantCard(
 }
 
 private fun formatDate(date: OffsetDateTime): String {
-    val formatter = DateTimeFormatter.ofPattern("MMM d", Locale.getDefault())
+    val formatter = DateTimeFormatter.ofPattern("dd MMM", Locale.getDefault())
     return date.format(formatter)
 }

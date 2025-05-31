@@ -105,6 +105,18 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
             try {
+                // Load favorite plants
+                plantRepository.getFavoritePlants()
+                    .collect { favoritePlants ->
+                        _uiState.update { 
+                            it.copy(
+                                favoritePlants = favoritePlants,
+                                isLoading = false
+                            )
+                        }
+                    }
+
+                // Load user's plants with watering info
                 plantRepository.getUserPlants()
                     .collect { plants ->
                         val now = OffsetDateTime.now()
@@ -149,6 +161,7 @@ data class HomeUiState(
     val selectedLocation: String = "",
     val needsWateringPlants: List<Plant> = emptyList(),
     val upcomingWateringPlants: List<Plant> = emptyList(),
+    val favoritePlants: List<Plant> = emptyList(),
     val isLoading: Boolean = true,
     val error: String? = null,
     val selectedPlantId: String? = null

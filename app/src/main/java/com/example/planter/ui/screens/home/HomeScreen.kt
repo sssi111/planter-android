@@ -134,9 +134,9 @@ fun HomeScreen(
             fontWeight = FontWeight.Bold
         )
         
-        Spacer(Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(16.dp))
         
-        if (uiState.upcomingWateringPlants.isEmpty() && uiState.needsWateringPlants.isEmpty()) {
+        if (uiState.favoritePlants.isEmpty()) {
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
@@ -150,13 +150,13 @@ fun HomeScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "No plants yet",
+                        text = "No favorite plants yet",
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Spacer(Modifier.height(8.dp))
                     Text(
-                        text = "Add your first plant to start tracking its care",
+                        text = "Add plants to favorites to see them here",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -166,7 +166,7 @@ fun HomeScreen(
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                items(uiState.upcomingWateringPlants) { plant ->
+                items(uiState.favoritePlants) { plant ->
                     PlantCard(
                         plant = plant,
                         onClick = { onPlantClick(plant.id) },
