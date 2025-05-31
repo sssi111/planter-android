@@ -3,6 +3,7 @@ package com.example.planter.di
 import com.example.planter.data.network.PlantApi
 import com.example.planter.data.api.PlanterApi
 import com.example.planter.data.auth.AuthInterceptor
+import com.example.planter.data.api.adapter.*
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -22,6 +23,12 @@ object NetworkModule {
     @Singleton
     fun provideMoshi(): Moshi {
         return Moshi.Builder()
+            .add(OffsetDateTimeAdapter())
+            .add(LanguageAdapter())
+            .add(SunlightLevelAdapter())
+            .add(HumidityLevelAdapter())
+            .add(NotificationTypeAdapter())
+            .add(UUIDAdapter())
             .add(KotlinJsonAdapterFactory())
             .build()
     }
@@ -41,7 +48,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://localhost:8080/") // TODO: Move to BuildConfig
+            .baseUrl("http://10.0.2.2:8080/") // Special Android emulator address that points to host machine's localhost
             .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
