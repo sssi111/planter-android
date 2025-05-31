@@ -34,18 +34,30 @@ class HomeViewModel @Inject constructor(
             try {
                 plantRepository.searchPlants(_uiState.value.searchQuery)
                     .collect { plants ->
-                        _uiState.update { 
-                            it.copy(
-                                searchResults = plants,
-                                isLoading = false
-                            )
+                        if (plants.isNotEmpty()) {
+                            _uiState.update { 
+                                it.copy(
+                                    searchResults = plants,
+                                    selectedPlantId = plants.first().id,
+                                    isLoading = false
+                                )
+                            }
+                        } else {
+                            _uiState.update { 
+                                it.copy(
+                                    searchResults = emptyList(),
+                                    selectedPlantId = null,
+                                    isLoading = false
+                                )
+                            }
                         }
                     }
             } catch (e: Exception) {
                 _uiState.update { 
                     it.copy(
                         error = e.message ?: "Unknown error",
-                        isLoading = false
+                        isLoading = false,
+                        selectedPlantId = null
                     )
                 }
             }
@@ -122,6 +134,10 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun clearSelectedPlant() {
+        _uiState.update { it.copy(selectedPlantId = null) }
+    }
+
     private fun MutableStateFlow<HomeUiState>.update(transform: (HomeUiState) -> HomeUiState) {
         value = transform(value)
     }
@@ -134,5 +150,6 @@ data class HomeUiState(
     val needsWateringPlants: List<Plant> = emptyList(),
     val upcomingWateringPlants: List<Plant> = emptyList(),
     val isLoading: Boolean = true,
-    val error: String? = null
+    val error: String? = null,
+    val selectedPlantId: String? = null
 ) 

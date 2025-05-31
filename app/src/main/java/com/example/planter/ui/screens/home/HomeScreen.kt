@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -38,6 +39,14 @@ fun HomeScreen(
     val uiState by viewModel.uiState.collectAsState()
     val userName by userViewModel.userName.collectAsState()
     val scrollState = rememberScrollState()
+    
+    // Handle navigation when a plant is selected from search
+    LaunchedEffect(uiState.selectedPlantId) {
+        uiState.selectedPlantId?.let { plantId ->
+            onPlantClick(plantId)
+            viewModel.clearSelectedPlant()
+        }
+    }
     
     Column(
         modifier = Modifier

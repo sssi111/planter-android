@@ -29,6 +29,13 @@ fun SearchBar(
             unfocusedContainerColor = MaterialTheme.colorScheme.surface
         ),
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-        keyboardActions = KeyboardActions(onSearch = { onSearch() })
+        keyboardActions = KeyboardActions(onSearch = { onSearch() }),
+        trailingIcon = {
+            if (query.isNotEmpty()) {
+                IconButton(onClick = onSearch) {
+                    Icon(Icons.Default.Search, contentDescription = "Search")
+                }
+            }
+        }
     )
 } 

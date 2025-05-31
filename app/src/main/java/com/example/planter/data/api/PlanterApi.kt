@@ -31,7 +31,7 @@ interface PlanterApi {
     @GET("plants/search")
     suspend fun searchPlants(@Query("query") query: String): List<Plant>
     
-    @GET("plants/favorites")
+    @GET("users/me/favorites")
     suspend fun getFavoritePlants(): List<Plant>
     
     @POST("plants/{plantId}/favorite")
