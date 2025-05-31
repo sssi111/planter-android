@@ -1,15 +1,26 @@
-@GET("/notifications")
-suspend fun getNotifications(
-    @Query("page") page: Int,
-    @Query("pageSize") pageSize: Int
-): NotificationResponse
+package com.example.planter.data.network
 
-@POST("/notifications/{notificationId}/read")
-suspend fun markNotificationAsRead(
-    @Path("notificationId") notificationId: UUID
-)
+import com.example.planter.data.model.Notification
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
+import retrofit2.http.Query
+import java.util.UUID
 
-data class NotificationResponse(
-    val notifications: List<Notification>,
-    val total: Int
-) 
+interface PlantApi {
+    @GET("/notifications")
+    suspend fun getNotifications(
+        @Query("page") page: Int,
+        @Query("pageSize") pageSize: Int
+    ): NotificationResponse
+
+    @POST("/notifications/{notificationId}/read")
+    suspend fun markNotificationAsRead(
+        @Path("notificationId") notificationId: UUID
+    )
+
+    data class NotificationResponse(
+        val notifications: List<Notification>,
+        val total: Int
+    )
+}

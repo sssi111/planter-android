@@ -70,6 +70,7 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.activity.compose)
     implementation(libs.navigation.compose)
+    implementation("androidx.compose.material:material-icons-extended:1.6.3")
 
     // Hilt
     implementation("com.google.dagger:hilt-android:2.50")

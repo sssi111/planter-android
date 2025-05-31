@@ -46,7 +46,7 @@ fun NotificationItem(
             when (notification.type) {
                 NotificationType.WATERING -> {
                     Icon(
-                        imageVector = Icons.Default.WaterDrop,
+                        imageVector = Icons.Filled.WaterDrop,
                         contentDescription = "Уведомление о поливе",
                         tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(24.dp)
@@ -80,7 +80,7 @@ fun NotificationItem(
             if (!notification.isRead) {
                 Spacer(modifier = Modifier.width(8.dp))
                 Icon(
-                    imageVector = Icons.Default.Circle,
+                    imageVector = Icons.Filled.Circle,
                     contentDescription = "Непрочитанное уведомление",
                     tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(8.dp)

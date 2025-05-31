@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.planter.R
 import com.example.planter.data.model.Notification
+import com.example.planter.data.model.NotificationType
 import com.example.planter.ui.components.NotificationItem
 import com.example.planter.ui.notifications.NotificationsViewModel
 
