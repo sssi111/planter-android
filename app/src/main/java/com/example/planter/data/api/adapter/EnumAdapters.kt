@@ -6,9 +6,10 @@ import com.squareup.moshi.ToJson
 
 class LanguageAdapter {
     @FromJson
-    fun fromJson(value: String): Language = when (value) {
-        "RUSSIAN" -> Language.RUSSIAN
-        "ENGLISH" -> Language.ENGLISH
+    fun fromJson(value: String): Language = when {
+        value.isBlank() -> Language.RUSSIAN // Default value for empty strings
+        value == "RUSSIAN" -> Language.RUSSIAN
+        value == "ENGLISH" -> Language.ENGLISH
         else -> throw IllegalArgumentException("Unknown Language: $value")
     }
 
@@ -21,10 +22,11 @@ class LanguageAdapter {
 
 class SunlightLevelAdapter {
     @FromJson
-    fun fromJson(value: String): SunlightLevel = when (value) {
-        "LOW" -> SunlightLevel.LOW
-        "MEDIUM" -> SunlightLevel.MEDIUM
-        "HIGH" -> SunlightLevel.HIGH
+    fun fromJson(value: String): SunlightLevel = when {
+        value.isBlank() -> SunlightLevel.MEDIUM // Default value for empty strings
+        value == "LOW" -> SunlightLevel.LOW
+        value == "MEDIUM" -> SunlightLevel.MEDIUM
+        value == "HIGH" -> SunlightLevel.HIGH
         else -> throw IllegalArgumentException("Unknown SunlightLevel: $value")
     }
 
@@ -38,10 +40,11 @@ class SunlightLevelAdapter {
 
 class HumidityLevelAdapter {
     @FromJson
-    fun fromJson(value: String): HumidityLevel = when (value) {
-        "LOW" -> HumidityLevel.LOW
-        "MEDIUM" -> HumidityLevel.MEDIUM
-        "HIGH" -> HumidityLevel.HIGH
+    fun fromJson(value: String): HumidityLevel = when {
+        value.isBlank() -> HumidityLevel.MEDIUM // Default value for empty strings
+        value == "LOW" -> HumidityLevel.LOW
+        value == "MEDIUM" -> HumidityLevel.MEDIUM
+        value == "HIGH" -> HumidityLevel.HIGH
         else -> throw IllegalArgumentException("Unknown HumidityLevel: $value")
     }
 
@@ -55,8 +58,9 @@ class HumidityLevelAdapter {
 
 class NotificationTypeAdapter {
     @FromJson
-    fun fromJson(value: String): NotificationType = when (value) {
-        "WATERING" -> NotificationType.WATERING
+    fun fromJson(value: String): NotificationType = when {
+        value.isBlank() -> NotificationType.WATERING // Default value for empty strings
+        value == "WATERING" -> NotificationType.WATERING
         else -> throw IllegalArgumentException("Unknown NotificationType: $value")
     }
 
