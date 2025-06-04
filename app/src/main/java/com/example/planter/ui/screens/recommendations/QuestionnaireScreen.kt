@@ -48,20 +48,24 @@ fun QuestionnaireScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Plant Preferences",
+            text = "Предпочтения по растениям",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
         // Sunlight preference selection
-        Text("Sunlight Preference", fontWeight = FontWeight.Medium)
+        Text("Предпочтения по освещению", fontWeight = FontWeight.Medium)
         Row(horizontalArrangement = Arrangement.SpaceEvenly) {
-            listOf("Low", "Medium", "High").forEach { level ->
+            listOf(
+                "Низкое" to "Low",
+                "Среднее" to "Medium",
+                "Высокое" to "High"
+            ).forEach { (displayText, value) ->
                 FilterChip(
-                    selected = sunlightPreference == level,
-                    onClick = { sunlightPreference = level },
-                    label = { Text(level) },
+                    selected = sunlightPreference == value,
+                    onClick = { sunlightPreference = value },
+                    label = { Text(displayText) },
                     modifier = Modifier.padding(4.dp)
                 )
             }
@@ -71,7 +75,7 @@ fun QuestionnaireScreen(
 
         // Pet friendly toggle
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text("Pet Friendly?", fontWeight = FontWeight.Medium)
+            Text("Безопасно для питомцев?", fontWeight = FontWeight.Medium)
             Switch(
                 checked = petFriendly,
                 onCheckedChange = { petFriendly = it },
@@ -82,7 +86,7 @@ fun QuestionnaireScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         // Care level slider
-        Text("Care Level (1-5)", fontWeight = FontWeight.Medium)
+        Text("Уровень ухода (1-5)", fontWeight = FontWeight.Medium)
         Slider(
             value = careLevel.toFloat(),
             onValueChange = { careLevel = it.toInt() },
@@ -90,7 +94,7 @@ fun QuestionnaireScreen(
             steps = 4,
             modifier = Modifier.fillMaxWidth()
         )
-        Text("Level: $careLevel")
+        Text("Уровень: $careLevel")
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -98,7 +102,7 @@ fun QuestionnaireScreen(
         OutlinedTextField(
             value = preferredLocation,
             onValueChange = { preferredLocation = it },
-            label = { Text("Preferred Location (optional)") },
+            label = { Text("Предпочтительное место (необязательно)") },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true
         )
@@ -123,7 +127,7 @@ fun QuestionnaireScreen(
                     .fillMaxWidth()
                     .height(56.dp)
             ) {
-                Text("Get Recommendations", fontSize = 18.sp)
+                Text("Получить рекомендации", fontSize = 18.sp)
             }
         }
 
