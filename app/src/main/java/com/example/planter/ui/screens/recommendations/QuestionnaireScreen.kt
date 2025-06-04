@@ -58,9 +58,9 @@ fun QuestionnaireScreen(
         Text("Предпочтения по освещению", fontWeight = FontWeight.Medium)
         Row(horizontalArrangement = Arrangement.SpaceEvenly) {
             listOf(
-                "Низкое" to "Low",
-                "Среднее" to "Medium",
-                "Высокое" to "High"
+                "Низкое" to "LOW",
+                "Среднее" to "MEDIUM",
+                "Высокое" to "HIGH"
             ).forEach { (displayText, value) ->
                 FilterChip(
                     selected = sunlightPreference == value,
