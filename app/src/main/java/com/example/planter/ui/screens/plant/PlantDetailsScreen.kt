@@ -251,38 +251,38 @@ fun CareInstructionsSection(careInstructions: CareInstructions) {
             modifier = Modifier.padding(16.dp)
         ) {
             CareInstructionItem(
-                title = "Watering",
-                description = "Every ${careInstructions.wateringFrequency} days"
+                title = "Полив",
+                description = "Каждые ${careInstructions.wateringFrequency} дней"
             )
             
             CareInstructionItem(
-                title = "Sunlight",
+                title = "Освещение",
                 description = getSunlightDescription(careInstructions.sunlight)
             )
             
             CareInstructionItem(
-                title = "Temperature",
+                title = "Температура",
                 description = "${careInstructions.temperature.min}°C - ${careInstructions.temperature.max}°C"
             )
             
             CareInstructionItem(
-                title = "Humidity",
+                title = "Влажность",
                 description = getHumidityDescription(careInstructions.humidity)
             )
             
             CareInstructionItem(
-                title = "Soil Type",
+                title = "Тип почвы",
                 description = careInstructions.soilType
             )
             
             CareInstructionItem(
-                title = "Fertilizer",
-                description = "Every ${careInstructions.fertilizerFrequency} days"
+                title = "Удобрение",
+                description = "Каждые ${careInstructions.fertilizerFrequency} дней"
             )
             
             if (careInstructions.additionalNotes.isNotBlank()) {
                 CareInstructionItem(
-                    title = "Additional Notes",
+                    title = "Дополнительные заметки",
                     description = careInstructions.additionalNotes
                 )
             }
@@ -310,17 +310,17 @@ fun CareInstructionItem(title: String, description: String) {
 
 fun getSunlightDescription(level: SunlightLevel): String {
     return when (level) {
-        SunlightLevel.LOW -> "Low light (shade to partial shade)"
-        SunlightLevel.MEDIUM -> "Medium light (partial sun)"
-        SunlightLevel.HIGH -> "High light (full sun)"
+        SunlightLevel.LOW -> "Низкое освещение (тень или полутень)"
+        SunlightLevel.MEDIUM -> "Среднее освещение (частичное солнце)"
+        SunlightLevel.HIGH -> "Высокое освещение (прямой солнечный свет)"
     }
 }
 
 fun getHumidityDescription(level: HumidityLevel): String {
     return when (level) {
-        HumidityLevel.LOW -> "Low humidity (30-40%)"
-        HumidityLevel.MEDIUM -> "Medium humidity (40-60%)"
-        HumidityLevel.HIGH -> "High humidity (60%+)"
+        HumidityLevel.LOW -> "Низкая влажность (30-40%)"
+        HumidityLevel.MEDIUM -> "Средняя влажность (40-60%)"
+        HumidityLevel.HIGH -> "Высокая влажность (60%+)"
     }
 }
 
