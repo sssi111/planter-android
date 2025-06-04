@@ -93,7 +93,7 @@ fun HomeScreen(
                         )
                         Spacer(Modifier.width(8.dp))
                         Text(
-                            text = "Needs Watering",
+                            text = "Нужен полив",
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.error
@@ -129,7 +129,7 @@ fun HomeScreen(
         
         // All user's plants grouped by location
         Text(
-            text = "My Plants",
+            text = "Мои растения",
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold
         )
@@ -150,13 +150,13 @@ fun HomeScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "No favorite plants yet",
+                        text = "Нет избранных растений",
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Spacer(Modifier.height(8.dp))
                     Text(
-                        text = "Add plants to favorites to see them here",
+                        text = "Добавьте растения в избранное, чтобы увидеть их здесь",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

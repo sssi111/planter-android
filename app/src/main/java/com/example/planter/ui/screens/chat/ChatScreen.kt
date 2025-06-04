@@ -2,20 +2,16 @@ package com.example.planter.ui.screens.chat
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.Send
+import androidx.compose.material.icons.filled.Chat
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.foundation.layout.Arrangement
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.planter.data.model.ChatMessage
-import androidx.compose.foundation.layout.Box
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.planter.R
 import com.example.planter.ui.components.TopBar
 import com.example.planter.ui.viewmodels.UserViewModel
@@ -25,13 +21,12 @@ fun ChatScreen(
     viewModel: ChatViewModel = hiltViewModel(),
     userViewModel: UserViewModel = hiltViewModel()
 ) {
-    val messages by viewModel.messages.collectAsState()
     val userName by userViewModel.userName.collectAsState()
-    var message by remember { mutableStateOf("") }
     
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
             .padding(horizontal = 16.dp)
     ) {
         Spacer(Modifier.height(24.dp))
@@ -42,33 +37,40 @@ fun ChatScreen(
         )
         Spacer(Modifier.height(16.dp))
         Text(
-            text = stringResource(R.string.title_chat),
+            text = stringResource(R.string.chat),
             style = MaterialTheme.typography.titleMedium
         )
-        Spacer(Modifier.height(16.dp))
-        // TODO: Список сообщений
-        Box(modifier = Modifier.weight(1f)) {
-            Text(
-                text = stringResource(R.string.chat_empty_message),
-                style = MaterialTheme.typography.bodyLarge
-            )
-        }
-        OutlinedTextField(
-            value = message,
-            onValueChange = { message = it },
-            placeholder = { Text(stringResource(R.string.type_message)) },
-            modifier = Modifier.fillMaxWidth(),
-            trailingIcon = {
-                IconButton(onClick = {
-                    if (message.isNotBlank()) {
-                        viewModel.sendMessage(message)
-                        message = ""
-                    }
-                }) {
-                    Icon(Icons.AutoMirrored.Filled.Send, contentDescription = stringResource(R.string.send))
-                }
+        
+        // Coming Soon placeholder
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Chat,
+                    contentDescription = null,
+                    modifier = Modifier.size(64.dp),
+                    tint = MaterialTheme.colorScheme.primary
+                )
+                Spacer(Modifier.height(16.dp))
+                Text(
+                    text = stringResource(R.string.chat_coming_soon),
+                    style = MaterialTheme.typography.titleLarge,
+                    textAlign = TextAlign.Center
+                )
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    text = stringResource(R.string.chat_description),
+                    style = MaterialTheme.typography.bodyMedium,
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             }
-        )
-        Spacer(Modifier.height(8.dp))
+        }
     }
 } 

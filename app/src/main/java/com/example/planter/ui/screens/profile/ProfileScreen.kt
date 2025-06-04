@@ -42,7 +42,7 @@ fun ProfileScreen(
             shape = MaterialTheme.shapes.medium
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
-                Text("Profile information will appear here", style = MaterialTheme.typography.bodyLarge)
+                Text("Информация профиля появится здесь", style = MaterialTheme.typography.bodyLarge)
             }
         }
     }

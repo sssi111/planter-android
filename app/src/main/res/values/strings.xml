@@ -3,11 +3,11 @@
     <string name="app_name">Planter</string>
     
     <!-- Navigation -->
-    <string name="home">Home</string>
-    <string name="favorites">Favorites</string>
-    <string name="chat">Chat</string>
-    <string name="shop">Shop</string>
-    <string name="profile">Profile</string>
+    <string name="home">Главная</string>
+    <string name="favorites">Избранное</string>
+    <string name="chat">Чат</string>
+    <string name="shop">Магазин</string>
+    <string name="profile">Профиль</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
@@ -24,20 +24,24 @@
     
     <!-- Home -->
     <string name="welcome">Welcome</string>
-    <string name="search_plants">Search plants</string>
+    <string name="search_plants">Поиск растений</string>
     <string name="special_offers">Special Offers</string>
-    <string name="select_location">Select Location</string>
-    <string name="home_location">Home</string>
-    <string name="work_location">Work</string>
-    <string name="summer_house">Summer House</string>
-    <string name="my_plants">My Plants</string>
+    <string name="select_location">Выберите расположение</string>
+    <string name="home_location">Дом</string>
+    <string name="work_location">Работа</string>
+    <string name="summer_house">Дача</string>
+    <string name="my_plants">Мои растения</string>
+    <string name="no_favorites">Нет избранных растений</string>
+    <string name="add_to_favorites">Добавьте растения в избранное, чтобы увидеть их здесь</string>
+    <string name="needs_watering">Нужен полив</string>
+    <string name="chat_coming_soon">Чат будет доступен в ближайшее время</string>
+    <string name="chat_description">Здесь вы сможете получить консультацию по уходу за растениями</string>
     
     <!-- Plant Details -->
     <string name="plant_care">Plant Care</string>
     <string name="watering_schedule">Watering Schedule</string>
     <string name="next_watering">Next Watering</string>
     <string name="mark_watered">Mark as Watered</string>
-    <string name="add_to_favorites">Add to Favorites</string>
     <string name="remove_from_favorites">Remove from Favorites</string>
     <string name="buy_now">Buy Now</string>
     <string name="plant_details">Plant Details</string>
