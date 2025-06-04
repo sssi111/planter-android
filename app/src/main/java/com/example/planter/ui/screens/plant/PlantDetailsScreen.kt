@@ -151,7 +151,7 @@ fun PlantDetailsScreen(
                 
                 // Description
                 Text(
-                    text = "Description",
+                    text = "Описание",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
@@ -162,10 +162,60 @@ fun PlantDetailsScreen(
                 )
                 
                 Spacer(modifier = Modifier.height(16.dp))
+
+                // Watering information
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)
+                    )
+                ) {
+                    Column(
+                        modifier = Modifier.padding(16.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column {
+                                if (plant.lastWatered != null) {
+                                    Text(
+                                        text = "Последний полив: ${formatDate(plant.lastWatered)}",
+                                        style = MaterialTheme.typography.bodyMedium
+                                    )
+                                }
+                                
+                                if (plant.nextWatering != null) {
+                                    Text(
+                                        text = "Следующий полив: ${formatDate(plant.nextWatering)}",
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        color = MaterialTheme.colorScheme.primary
+                                    )
+                                }
+                            }
+                            
+                            Button(
+                                onClick = { viewModel.markAsWatered() },
+                                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Info,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text("Полить")
+                            }
+                        }
+                    }
+                }
+                
+                Spacer(modifier = Modifier.height(16.dp))
                 
                 // Care instructions
                 Text(
-                    text = "Care Instructions",
+                    text = "Инструкции по уходу",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
@@ -176,49 +226,10 @@ fun PlantDetailsScreen(
                 
                 Spacer(modifier = Modifier.height(16.dp))
                 
-                // Watering information
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Column {
-                        if (plant.lastWatered != null) {
-                            Text(
-                                text = "Last watered: ${formatDate(plant.lastWatered)}",
-                                style = MaterialTheme.typography.bodyMedium
-                            )
-                        }
-                        
-                        if (plant.nextWatering != null) {
-                            Text(
-                                text = "Next watering: ${formatDate(plant.nextWatering)}",
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.primary
-                            )
-                        }
-                    }
-                    
-                    Button(
-                        onClick = { viewModel.markAsWatered() },
-                        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Info,
-                            contentDescription = null,
-                            modifier = Modifier.size(18.dp)
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text("Water Now")
-                    }
-                }
-                
-                Spacer(modifier = Modifier.height(16.dp))
-                
                 // Location information
                 if (plant.location != null) {
                     Text(
-                        text = "Location: ${plant.location}",
+                        text = "Расположение: ${plant.location}",
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
@@ -227,7 +238,7 @@ fun PlantDetailsScreen(
                 if (plant.shopId != null && plant.price != null) {
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "Available for purchase: $${plant.price}",
+                        text = "Доступно к покупке: ${plant.price}₽",
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Bold
                     )
@@ -325,7 +336,7 @@ fun getHumidityDescription(level: HumidityLevel): String {
 }
 
 private fun formatDate(date: OffsetDateTime?): String {
-    if (date == null) return "N/A"
-    val formatter = DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.getDefault())
+    if (date == null) return "Н/Д"
+    val formatter = DateTimeFormatter.ofPattern("d MMM yyyy", Locale("ru"))
     return date.format(formatter)
 }
