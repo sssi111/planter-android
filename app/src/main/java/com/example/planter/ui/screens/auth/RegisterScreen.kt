@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -71,14 +72,14 @@ fun RegisterScreen(
             Spacer(modifier = Modifier.height(16.dp))
             
             Text(
-                text = "Create Account",
+                text = stringResource(R.string.create_account),
                 fontWeight = FontWeight.Bold,
                 fontSize = 24.sp,
                 color = MaterialTheme.colorScheme.onBackground
             )
             
             Text(
-                text = "Join the Planter community",
+                text = stringResource(R.string.join_planter_community),
                 fontSize = 16.sp,
                 color = Color.Gray,
                 textAlign = TextAlign.Center,
@@ -98,7 +99,7 @@ fun RegisterScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Name",
+                        text = stringResource(R.string.name),
                         fontWeight = FontWeight.Medium,
                         fontSize = 16.sp,
                         color = MaterialTheme.colorScheme.onSurface,
@@ -114,7 +115,7 @@ fun RegisterScreen(
                                 tint = MaterialTheme.colorScheme.primary
                             )
                         },
-                        placeholder = { Text("Your name", color = Color.Gray) },
+                        placeholder = { Text(stringResource(R.string.name_placeholder), color = Color.Gray) },
                         singleLine = true,
                         shape = RoundedCornerShape(12.dp),
                         modifier = Modifier
@@ -131,7 +132,7 @@ fun RegisterScreen(
                     Spacer(modifier = Modifier.height(16.dp))
                     
                     Text(
-                        text = "Email Address",
+                        text = stringResource(R.string.email),
                         fontWeight = FontWeight.Medium,
                         fontSize = 16.sp,
                         color = MaterialTheme.colorScheme.onSurface,
@@ -147,7 +148,7 @@ fun RegisterScreen(
                                 tint = MaterialTheme.colorScheme.primary
                             )
                         },
-                        placeholder = { Text("Youremail@gmail.com", color = Color.Gray) },
+                        placeholder = { Text(stringResource(R.string.email_placeholder), color = Color.Gray) },
                         singleLine = true,
                         shape = RoundedCornerShape(12.dp),
                         modifier = Modifier
@@ -164,7 +165,7 @@ fun RegisterScreen(
                     Spacer(modifier = Modifier.height(16.dp))
                     
                     Text(
-                        text = "Password",
+                        text = stringResource(R.string.password),
                         fontWeight = FontWeight.Medium,
                         fontSize = 16.sp,
                         color = MaterialTheme.colorScheme.onSurface,
@@ -180,7 +181,7 @@ fun RegisterScreen(
                                 tint = MaterialTheme.colorScheme.primary
                             )
                         },
-                        placeholder = { Text("At least 8 characters", color = Color.Gray) },
+                        placeholder = { Text(stringResource(R.string.password_placeholder), color = Color.Gray) },
                         singleLine = true,
                         shape = RoundedCornerShape(12.dp),
                         modifier = Modifier
@@ -212,7 +213,7 @@ fun RegisterScreen(
                             )
                         } else {
                             Text(
-                                "Create Account",
+                                stringResource(R.string.create_account),
                                 color = Color.White,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 18.sp
@@ -239,14 +240,14 @@ fun RegisterScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Already have an account?",
+                    text = stringResource(R.string.already_have_account),
                     color = Color.Gray,
                     fontSize = 16.sp
                 )
                 
                 TextButton(onClick = { onLoginClick() }) {
                     Text(
-                        text = "Log In",
+                        text = stringResource(R.string.login),
                         color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.Bold,
                         fontSize = 16.sp
@@ -270,7 +271,7 @@ fun RegisterScreen(
                 ) {
                     Icon(
                         Icons.Default.ArrowBack,
-                        contentDescription = "Back",
+                        contentDescription = stringResource(R.string.back),
                         tint = MaterialTheme.colorScheme.primary
                     )
                 }

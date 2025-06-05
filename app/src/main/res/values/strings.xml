@@ -8,22 +8,31 @@
     <string name="chat">Чат</string>
     <string name="shop">Магазин</string>
     <string name="profile">Профиль</string>
+    <string name="back">Назад</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     
     <!-- Auth -->
-    <string name="login">Login</string>
-    <string name="register">Register</string>
+    <string name="login">Войти</string>
+    <string name="register">Регистрация</string>
     <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="confirm_password">Confirm Password</string>
-    <string name="name">Name</string>
-    <string name="already_have_account">Already have an account? Login</string>
-    <string name="dont_have_account">Don\'t have an account? Register</string>
+    <string name="password">Пароль</string>
+    <string name="confirm_password">Подтвердите пароль</string>
+    <string name="name">Имя</string>
+    <string name="already_have_account">Уже есть аккаунт? Войти</string>
+    <string name="dont_have_account">Нет аккаунта? Зарегистрироваться</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="create_account">Создать аккаунт</string>
+    <string name="welcome_to_planter">Добро пожаловать в Planter</string>
+    <string name="plant_care_assistant">Ваш личный помощник по уходу за растениями</string>
+    <string name="join_planter_community">Присоединяйтесь к сообществу Planter</string>
+    <string name="email_placeholder">Ваш email</string>
+    <string name="password_placeholder">Минимум 8 символов</string>
+    <string name="name_placeholder">Ваше имя</string>
     
     <!-- Home -->
-    <string name="welcome">Welcome</string>
+    <string name="welcome">Добро пожаловать</string>
     <string name="search_plants">Поиск растений</string>
     <string name="special_offers">Special Offers</string>
     <string name="select_location">Выберите расположение</string>
@@ -38,13 +47,13 @@
     <string name="chat_description">Здесь вы сможете получить консультацию по уходу за растениями</string>
     
     <!-- Plant Details -->
-    <string name="plant_care">Plant Care</string>
-    <string name="watering_schedule">Watering Schedule</string>
-    <string name="next_watering">Next Watering</string>
-    <string name="mark_watered">Mark as Watered</string>
-    <string name="remove_from_favorites">Remove from Favorites</string>
-    <string name="buy_now">Buy Now</string>
-    <string name="plant_details">Plant Details</string>
+    <string name="plant_care">Уход за растением</string>
+    <string name="watering_schedule">График полива</string>
+    <string name="next_watering">Следующий полив</string>
+    <string name="mark_watered">Отметить полив</string>
+    <string name="remove_from_favorites">Удалить из избранного</string>
+    <string name="buy_now">Купить</string>
+    <string name="plant_details">Информация о растении</string>
     
     <!-- Chat -->
     <string name="schedule_consultation">Schedule Consultation</string>
@@ -61,9 +70,9 @@
     <string name="logout">Logout</string>
     
     <!-- Common -->
-    <string name="save">Save</string>
-    <string name="cancel">Cancel</string>
-    <string name="error">Error</string>
-    <string name="success">Success</string>
-    <string name="loading">Loading</string>
+    <string name="save">Сохранить</string>
+    <string name="cancel">Отмена</string>
+    <string name="error">Ошибка</string>
+    <string name="success">Успешно</string>
+    <string name="loading">Загрузка</string>
 </resources>

@@ -17,6 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -69,14 +70,14 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(24.dp))
             
             Text(
-                text = "Welcome to Planter",
+                text = stringResource(R.string.welcome_to_planter),
                 fontWeight = FontWeight.Bold,
                 fontSize = 24.sp,
                 color = MaterialTheme.colorScheme.onBackground
             )
             
             Text(
-                text = "Your personal plant care assistant",
+                text = stringResource(R.string.plant_care_assistant),
                 fontSize = 16.sp,
                 color = Color.Gray,
                 textAlign = TextAlign.Center,
@@ -96,7 +97,7 @@ fun LoginScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Email Address",
+                        text = stringResource(R.string.email),
                         fontWeight = FontWeight.Medium,
                         fontSize = 16.sp,
                         color = MaterialTheme.colorScheme.onSurface,
@@ -112,7 +113,7 @@ fun LoginScreen(
                                 tint = MaterialTheme.colorScheme.primary
                             )
                         },
-                        placeholder = { Text("Youremail@gmail.com", color = Color.Gray) },
+                        placeholder = { Text(stringResource(R.string.email_placeholder), color = Color.Gray) },
                         singleLine = true,
                         shape = RoundedCornerShape(12.dp),
                         modifier = Modifier
@@ -129,7 +130,7 @@ fun LoginScreen(
                     Spacer(modifier = Modifier.height(16.dp))
                     
                     Text(
-                        text = "Password",
+                        text = stringResource(R.string.password),
                         fontWeight = FontWeight.Medium,
                         fontSize = 16.sp,
                         color = MaterialTheme.colorScheme.onSurface,
@@ -145,7 +146,7 @@ fun LoginScreen(
                                 tint = MaterialTheme.colorScheme.primary
                             )
                         },
-                        placeholder = { Text("At least 8 characters", color = Color.Gray) },
+                        placeholder = { Text(stringResource(R.string.password_placeholder), color = Color.Gray) },
                         singleLine = true,
                         shape = RoundedCornerShape(12.dp),
                         modifier = Modifier
@@ -166,7 +167,7 @@ fun LoginScreen(
                         modifier = Modifier.align(Alignment.End)
                     ) {
                         Text(
-                            "Forgot Password?",
+                            stringResource(R.string.forgot_password),
                             color = MaterialTheme.colorScheme.primary,
                             fontWeight = FontWeight.Medium
                         )
@@ -194,7 +195,7 @@ fun LoginScreen(
                             )
                         } else {
                             Text(
-                                "Log in",
+                                stringResource(R.string.login),
                                 color = Color.White,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 18.sp
@@ -223,14 +224,14 @@ fun LoginScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Don't have an account?",
+                    text = stringResource(R.string.dont_have_account),
                     color = Color.Gray,
                     fontSize = 16.sp
                 )
                 
                 TextButton(onClick = { onRegisterClick() }) {
                     Text(
-                        text = "Sign Up",
+                        text = stringResource(R.string.register),
                         color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.Bold,
                         fontSize = 16.sp
