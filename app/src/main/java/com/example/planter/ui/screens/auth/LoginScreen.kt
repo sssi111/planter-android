@@ -51,37 +51,37 @@ fun LoginScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 24.dp),
+                .padding(horizontal = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(60.dp))
+            Spacer(modifier = Modifier.height(40.dp))
             
             // App logo or image
             Image(
                 painter = painterResource(id = R.drawable.ic_launcher_foreground),
                 contentDescription = "App Logo",
                 modifier = Modifier
-                    .size(120.dp)
+                    .size(80.dp)
                     .clip(CircleShape)
                     .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)),
                 contentScale = ContentScale.Fit
             )
             
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(16.dp))
             
             Text(
                 text = stringResource(R.string.welcome_to_planter),
                 fontWeight = FontWeight.Bold,
-                fontSize = 24.sp,
+                fontSize = 20.sp,
                 color = MaterialTheme.colorScheme.onBackground
             )
             
             Text(
                 text = stringResource(R.string.plant_care_assistant),
-                fontSize = 16.sp,
+                fontSize = 14.sp,
                 color = Color.Gray,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(top = 8.dp, bottom = 40.dp)
+                modifier = Modifier.padding(top = 4.dp, bottom = 24.dp)
             )
             
             Card(
@@ -93,13 +93,13 @@ fun LoginScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 24.dp, vertical = 24.dp),
+                        .padding(horizontal = 16.dp, vertical = 16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
                         text = stringResource(R.string.email),
                         fontWeight = FontWeight.Medium,
-                        fontSize = 16.sp,
+                        fontSize = 14.sp,
                         color = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.align(Alignment.Start)
                     )
@@ -118,7 +118,7 @@ fun LoginScreen(
                         shape = RoundedCornerShape(12.dp),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(vertical = 8.dp),
+                            .padding(vertical = 4.dp),
                         colors = TextFieldDefaults.colors(
                             focusedContainerColor = Color(0xFFF8F8F8),
                             unfocusedContainerColor = Color(0xFFF8F8F8),
@@ -127,12 +127,12 @@ fun LoginScreen(
                         )
                     )
                     
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(12.dp))
                     
                     Text(
                         text = stringResource(R.string.password),
                         fontWeight = FontWeight.Medium,
-                        fontSize = 16.sp,
+                        fontSize = 14.sp,
                         color = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.align(Alignment.Start)
                     )
@@ -151,7 +151,7 @@ fun LoginScreen(
                         shape = RoundedCornerShape(12.dp),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(vertical = 8.dp),
+                            .padding(vertical = 4.dp),
                         colors = TextFieldDefaults.colors(
                             focusedContainerColor = Color(0xFFF8F8F8),
                             unfocusedContainerColor = Color(0xFFF8F8F8),
@@ -160,7 +160,7 @@ fun LoginScreen(
                         )
                     )
                     
-                    Spacer(Modifier.height(8.dp))
+                    Spacer(Modifier.height(4.dp))
                     
                     TextButton(
                         onClick = { /* TODO: Forgot password */ },
@@ -169,17 +169,18 @@ fun LoginScreen(
                         Text(
                             stringResource(R.string.forgot_password),
                             color = MaterialTheme.colorScheme.primary,
-                            fontWeight = FontWeight.Medium
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 12.sp
                         )
                     }
                     
-                    Spacer(Modifier.height(24.dp))
+                    Spacer(Modifier.height(16.dp))
                     
                     Button(
                         onClick = { viewModel.login(email, password) },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(56.dp),
+                            .height(48.dp),
                         shape = RoundedCornerShape(12.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = MaterialTheme.colorScheme.primary,
@@ -198,7 +199,7 @@ fun LoginScreen(
                                 stringResource(R.string.login),
                                 color = Color.White,
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 18.sp
+                                fontSize = 16.sp
                             )
                         }
                     }
@@ -214,19 +215,19 @@ fun LoginScreen(
                 }
             }
             
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.weight(0.5f))
             
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 24.dp),
+                    .padding(bottom = 16.dp),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = stringResource(R.string.dont_have_account),
                     color = Color.Gray,
-                    fontSize = 16.sp
+                    fontSize = 14.sp
                 )
                 
                 TextButton(onClick = { onRegisterClick() }) {
@@ -234,7 +235,7 @@ fun LoginScreen(
                         text = stringResource(R.string.register),
                         color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp
+                        fontSize = 14.sp
                     )
                 }
             }

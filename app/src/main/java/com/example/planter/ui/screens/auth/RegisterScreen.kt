@@ -53,37 +53,37 @@ fun RegisterScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 24.dp),
+                .padding(horizontal = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(32.dp))
             
             // App logo or image
             Image(
                 painter = painterResource(id = R.drawable.ic_launcher_foreground),
                 contentDescription = "App Logo",
                 modifier = Modifier
-                    .size(100.dp)
+                    .size(64.dp)
                     .clip(CircleShape)
                     .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)),
                 contentScale = ContentScale.Fit
             )
             
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(12.dp))
             
             Text(
                 text = stringResource(R.string.create_account),
                 fontWeight = FontWeight.Bold,
-                fontSize = 24.sp,
+                fontSize = 20.sp,
                 color = MaterialTheme.colorScheme.onBackground
             )
             
             Text(
                 text = stringResource(R.string.join_planter_community),
-                fontSize = 16.sp,
+                fontSize = 14.sp,
                 color = Color.Gray,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(top = 8.dp, bottom = 24.dp)
+                modifier = Modifier.padding(top = 4.dp, bottom = 16.dp)
             )
             
             Card(
@@ -95,13 +95,13 @@ fun RegisterScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 24.dp, vertical = 24.dp),
+                        .padding(horizontal = 16.dp, vertical = 16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
                         text = stringResource(R.string.name),
                         fontWeight = FontWeight.Medium,
-                        fontSize = 16.sp,
+                        fontSize = 14.sp,
                         color = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.align(Alignment.Start)
                     )
@@ -120,7 +120,7 @@ fun RegisterScreen(
                         shape = RoundedCornerShape(12.dp),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(vertical = 8.dp),
+                            .padding(vertical = 4.dp),
                         colors = TextFieldDefaults.colors(
                             focusedContainerColor = Color(0xFFF8F8F8),
                             unfocusedContainerColor = Color(0xFFF8F8F8),
@@ -129,12 +129,12 @@ fun RegisterScreen(
                         )
                     )
                     
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(12.dp))
                     
                     Text(
                         text = stringResource(R.string.email),
                         fontWeight = FontWeight.Medium,
-                        fontSize = 16.sp,
+                        fontSize = 14.sp,
                         color = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.align(Alignment.Start)
                     )
@@ -153,7 +153,7 @@ fun RegisterScreen(
                         shape = RoundedCornerShape(12.dp),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(vertical = 8.dp),
+                            .padding(vertical = 4.dp),
                         colors = TextFieldDefaults.colors(
                             focusedContainerColor = Color(0xFFF8F8F8),
                             unfocusedContainerColor = Color(0xFFF8F8F8),
@@ -162,12 +162,12 @@ fun RegisterScreen(
                         )
                     )
                     
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(12.dp))
                     
                     Text(
                         text = stringResource(R.string.password),
                         fontWeight = FontWeight.Medium,
-                        fontSize = 16.sp,
+                        fontSize = 14.sp,
                         color = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.align(Alignment.Start)
                     )
@@ -186,7 +186,7 @@ fun RegisterScreen(
                         shape = RoundedCornerShape(12.dp),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(vertical = 8.dp),
+                            .padding(vertical = 4.dp),
                         colors = TextFieldDefaults.colors(
                             focusedContainerColor = Color(0xFFF8F8F8),
                             unfocusedContainerColor = Color(0xFFF8F8F8),
@@ -195,13 +195,13 @@ fun RegisterScreen(
                         )
                     )
                     
-                    Spacer(Modifier.height(24.dp))
+                    Spacer(Modifier.height(16.dp))
                     
                     Button(
                         onClick = { viewModel.register(name, email, password) },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(56.dp),
+                            .height(48.dp),
                         shape = RoundedCornerShape(12.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
                         enabled = authState !is AuthState.Loading
@@ -216,7 +216,7 @@ fun RegisterScreen(
                                 stringResource(R.string.create_account),
                                 color = Color.White,
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 18.sp
+                                fontSize = 16.sp
                             )
                         }
                     }
@@ -232,17 +232,19 @@ fun RegisterScreen(
                 }
             }
             
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.weight(0.5f))
             
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = stringResource(R.string.already_have_account),
                     color = Color.Gray,
-                    fontSize = 16.sp
+                    fontSize = 14.sp
                 )
                 
                 TextButton(onClick = { onLoginClick() }) {
@@ -250,7 +252,7 @@ fun RegisterScreen(
                         text = stringResource(R.string.login),
                         color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp
+                        fontSize = 14.sp
                     )
                 }
             }
@@ -265,7 +267,7 @@ fun RegisterScreen(
                 IconButton(
                     onClick = { onLoginClick() },
                     modifier = Modifier
-                        .size(40.dp)
+                        .size(32.dp)
                         .clip(CircleShape)
                         .background(Color.White)
                 ) {
